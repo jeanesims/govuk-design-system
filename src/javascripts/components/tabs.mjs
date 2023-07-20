@@ -42,7 +42,9 @@ class AppTabs {
   }
 
   /**
+   * Handle tab clicks
    *
+   * @param {Event} event - Click event
    */
   onClick(event) {
     event.preventDefault()
@@ -106,6 +108,8 @@ class AppTabs {
 
   /**
    * Open a panel and set the associated controls and styles
+   *
+   * @param {string} panelId - Tab panel ID
    */
   openPanel(panelId) {
     const $mobileTab = this.getMobileTab(panelId)
@@ -125,6 +129,8 @@ class AppTabs {
 
   /**
    * Close a panel and set the associated controls and styles
+   *
+   * @param {string} panelId - Tab panel ID
    */
   closePanel(panelId) {
     const $mobileTab = this.getMobileTab(panelId)
@@ -138,6 +144,9 @@ class AppTabs {
 
   /**
    * Helper function to get a specific mobile tab by the associated panel ID
+   *
+   * @param {string} panelId - Tab panel ID
+   * @returns {HTMLButtonElement | null} Mobile tab button
    */
   getMobileTab(panelId) {
     let result = null
@@ -151,6 +160,9 @@ class AppTabs {
 
   /**
    * Helper function to get a specific desktop tab by the associated panel ID
+   *
+   * @param {string} panelId - Tab panel ID
+   * @returns {HTMLAnchorElement | null} Desktop tab link
    */
   getDesktopTab(panelId) {
     const $desktopTabContainer = this.$module.querySelector('.app-tabs')
@@ -162,6 +174,9 @@ class AppTabs {
 
   /**
    * Helper function to get a specific panel by ID
+   *
+   * @param {string} panelId - Tab panel ID
+   * @returns {HTMLElement | null} Tab panel
    */
   getPanel(panelId) {
     return document.getElementById(panelId)

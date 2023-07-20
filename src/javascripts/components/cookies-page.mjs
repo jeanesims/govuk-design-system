@@ -35,6 +35,9 @@ class CookiesPage {
     )
   }
 
+  /**
+   * @param {SubmitEvent} event - Form submit event
+   */
   savePreferences(event) {
     // Stop default form submission behaviour
     event.preventDefault()
@@ -43,11 +46,13 @@ class CookiesPage {
 
     this.$cookieFormFieldsets.forEach(($cookieFormFieldset) => {
       const cookieType = this.getCookieType($cookieFormFieldset)
-      const selectedItem = $cookieFormFieldset.querySelector(
+      const $selectedItem = $cookieFormFieldset.querySelector(
         `input[name=${cookieType}]:checked`
-      ).value
+      )
 
-      preferences[cookieType] = selectedItem === 'yes'
+      if ($selectedItem instanceof HTMLInputElement) {
+        preferences[cookieType] = $selectedItem.value === 'yes'
+      }
     })
 
     // Save preferences to cookie and show success notification
@@ -55,6 +60,10 @@ class CookiesPage {
     this.showSuccessNotification()
   }
 
+  /**
+   * @param {HTMLFieldSetElement} $cookieFormFieldset - Cookie form fieldset
+   * @param {import('./cookie-functions.mjs').ConsentPreferences} preferences - Consent preferences
+   */
   showUserPreference($cookieFormFieldset, preferences) {
     const cookieType = this.getCookieType($cookieFormFieldset)
     let preference = false
@@ -64,10 +73,12 @@ class CookiesPage {
     }
 
     const radioValue = preference ? 'yes' : 'no'
-    const radio = $cookieFormFieldset.querySelector(
+
+    /** @satisfies {HTMLInputElement} */
+    const $radio = $cookieFormFieldset.querySelector(
       `input[name=${cookieType}][value=${radioValue}]`
     )
-    radio.checked = true
+    $radio.checked = true
   }
 
   showSuccessNotification() {
@@ -86,6 +97,10 @@ class CookiesPage {
     window.scrollTo(0, 0)
   }
 
+  /**
+   * @param {HTMLFieldSetElement} $cookieFormFieldset - Cookie form fieldset
+   * @returns {string} Cookie type
+   */
   getCookieType($cookieFormFieldset) {
     return $cookieFormFieldset.id
   }
