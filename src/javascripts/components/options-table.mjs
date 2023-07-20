@@ -20,13 +20,13 @@ class OptionsTable {
         const $tabLink = document.querySelector(
           `a[href="#${exampleName}-nunjucks"]`
         )
-        const $tabHeading = $tabLink ? $tabLink.parentNode : null
+        const $tabHeading = $tabLink ? $tabLink.parentElement : null
         const $optionsDetailsElement = document.getElementById(
           `options-${exampleName}-details`
         )
 
         if ($tabHeading && $optionsDetailsElement) {
-          const $tabsElement = $optionsDetailsElement.parentNode
+          const $tabsElement = $optionsDetailsElement.parentElement
           const $detailsSummary = $optionsDetailsElement.querySelector(
             '.govuk-details__summary'
           )
