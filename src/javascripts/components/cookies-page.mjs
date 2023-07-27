@@ -33,12 +33,6 @@ class CookiesPage {
     if ($successNotification instanceof HTMLElement) {
       this.$successNotification = $successNotification
     }
-  }
-
-  init() {
-    if (!this.$page || !this.$cookieForm) {
-      return
-    }
 
     this.$cookieFormFieldsets.forEach(($cookieFormFieldset) => {
       this.showUserPreference($cookieFormFieldset, getConsentCookie())

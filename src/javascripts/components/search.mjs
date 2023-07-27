@@ -41,6 +41,37 @@ class Search {
     }
 
     this.$module = $module
+
+    accessibleAutocomplete({
+      element: this.$module,
+      id: 'app-site-search__input',
+      cssNamespace: 'app-site-search',
+      displayMenu: 'overlay',
+      placeholder: 'Search Design System',
+      confirmOnBlur: false,
+      autoselect: true,
+      source: this.handleSearchQuery.bind(this),
+      onConfirm: this.handleOnConfirm,
+      templates: {
+        inputValue: this.inputValueTemplate,
+        suggestion: this.resultTemplate
+      },
+      tNoResults: function () {
+        return statusMessage
+      }
+    })
+
+    const $input = this.$module.querySelector('.app-site-search__input')
+
+    // Ensure if the user stops using the search that we do not send tracking events
+    $input.addEventListener('blur', () => {
+      clearTimeout(inputDebounceTimer)
+    })
+
+    const searchIndexUrl = this.$module.getAttribute('data-search-index')
+    this.fetchSearchIndex(searchIndexUrl, () => {
+      this.renderResults()
+    })
   }
 
   fetchSearchIndex(indexUrl, callback) {
@@ -162,43 +193,6 @@ class Search {
       elem.appendChild(section)
       return elem.innerHTML
     }
-  }
-
-  init() {
-    if (!this.$module) {
-      return
-    }
-
-    accessibleAutocomplete({
-      element: this.$module,
-      id: 'app-site-search__input',
-      cssNamespace: 'app-site-search',
-      displayMenu: 'overlay',
-      placeholder: 'Search Design System',
-      confirmOnBlur: false,
-      autoselect: true,
-      source: this.handleSearchQuery.bind(this),
-      onConfirm: this.handleOnConfirm,
-      templates: {
-        inputValue: this.inputValueTemplate,
-        suggestion: this.resultTemplate
-      },
-      tNoResults: function () {
-        return statusMessage
-      }
-    })
-
-    const $input = this.$module.querySelector('.app-site-search__input')
-
-    // Ensure if the user stops using the search that we do not send tracking events
-    $input.addEventListener('blur', () => {
-      clearTimeout(inputDebounceTimer)
-    })
-
-    const searchIndexUrl = this.$module.getAttribute('data-search-index')
-    this.fetchSearchIndex(searchIndexUrl, () => {
-      this.renderResults()
-    })
   }
 }
 
