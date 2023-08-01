@@ -1,24 +1,44 @@
 import { getConsentCookie, setConsentCookie } from './cookie-functions.mjs'
 
 class CookiesPage {
+  /**
+   * @param {Element} $module - HTML element
+   */
   constructor($module) {
-    this.$module = $module
+    if (!($module instanceof HTMLElement)) {
+      return this
+    }
+
+    const $cookieForm = $module.querySelector('.js-cookies-page-form')
+    if (!($cookieForm instanceof HTMLFormElement)) {
+      return this
+    }
+
+    /** @satisfies {NodeListOf<HTMLFieldSetElement>} */
+    const $cookieFormFieldsets = $cookieForm.querySelectorAll(
+      '.js-cookies-page-form-fieldset'
+    )
+    const $cookieFormButton = $cookieForm.querySelector(
+      '.js-cookies-form-button'
+    )
+
+    this.$page = $module
+    this.$cookieForm = $cookieForm
+    this.$cookieFormFieldsets = $cookieFormFieldsets
+    this.$cookieFormButton = $cookieFormButton
+
+    const $successNotification = $module.querySelector(
+      '.js-cookies-page-success'
+    )
+    if ($successNotification instanceof HTMLElement) {
+      this.$successNotification = $successNotification
+    }
   }
 
   init() {
-    this.$cookiePage = this.$module
-
-    if (!this.$cookiePage) {
+    if (!this.$page || !this.$cookieForm) {
       return
     }
-
-    this.$cookieForm = this.$cookiePage.querySelector('.js-cookies-page-form')
-    this.$cookieFormFieldsets = this.$cookieForm.querySelectorAll(
-      '.js-cookies-page-form-fieldset'
-    )
-    this.$successNotification = this.$cookiePage.querySelector(
-      '.js-cookies-page-success'
-    )
 
     this.$cookieFormFieldsets.forEach(($cookieFormFieldset) => {
       this.showUserPreference($cookieFormFieldset, getConsentCookie())
@@ -26,9 +46,7 @@ class CookiesPage {
     })
 
     // Show submit button
-    this.$cookieForm
-      .querySelector('.js-cookies-form-button')
-      .removeAttribute('hidden')
+    this.$cookieFormButton.removeAttribute('hidden')
 
     this.$cookieForm.addEventListener('submit', (event) =>
       this.savePreferences(event)
@@ -82,6 +100,10 @@ class CookiesPage {
   }
 
   showSuccessNotification() {
+    if (!this.$successNotification) {
+      return
+    }
+
     this.$successNotification.removeAttribute('hidden')
 
     // Set tabindex to -1 to make the element focusable with JavaScript.
