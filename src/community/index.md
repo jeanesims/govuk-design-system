@@ -74,7 +74,7 @@ Join one of our regular events where we share ideas and work together to solve c
       title: "Design systems catchup",
       large: true
     }) %}
-      <p>Chat with us every other Friday on Google Meet. It’s an informal chat with an agenda set each week by participants. <a href="https://calendar.google.com/event?action=TEMPLATE&tmeid=dGZpZ251Y2ttaHRkY3AwcTBxcHViMmY4ZmNfMjAyMjA5MDlUMTMwMDAwWiBjYWx2aW4ubGF1QGRpZ2l0YWwuY2FiaW5ldC1vZmZpY2UuZ292LnVr&tmsrc=calvin.lau%40digital.cabinet-office.gov.uk&scp=ALL">Add to calendar</a> or <a href="https://design-system.service.gov.uk/get-in-touch/">contact the team</a> for an invite.</p>
+      <p>We regularly host informal chats with our community. We’ve paused our usual fortnightly catchup call over the summer, and plan to survey the community to find the best time and format to restart them in the autumn. <a href="https://design-system.service.gov.uk/get-in-touch/">Contact the team if you'd like to share your thoughts with us</a>.</p>
     {% endcall %}
   </div>
   <div class="govuk-grid-column-full">
