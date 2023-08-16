@@ -17,11 +17,11 @@ const OptionsTable = {
 
       if (exampleName) {
         const tabLink = document.querySelector(
-          'a[href="#' + exampleName + '-nunjucks"]'
+          `a[href="#${exampleName}-nunjucks"]`
         )
         const tabHeading = tabLink ? tabLink.parentNode : null
         const optionsDetailsElement = document.getElementById(
-          'options-' + exampleName + '-details'
+          `options-${exampleName}-details`
         )
 
         if (tabHeading && optionsDetailsElement) {
