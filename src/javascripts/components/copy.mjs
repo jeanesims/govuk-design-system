@@ -14,19 +14,18 @@ class Copy {
 
     this.$module = $module
 
-    const $button = document.createElement('button')
-    $button.className = 'app-copy-button js-copy-button'
-    $button.setAttribute('aria-live', 'assertive')
-    $button.textContent = 'Copy code'
+    this.$button = document.createElement('button')
+    this.$button.className = 'app-copy-button'
+    this.$button.textContent = 'Copy code'
 
-    this.$module.insertAdjacentElement('beforebegin', $button)
+    this.$module.insertAdjacentElement('beforebegin', this.$button)
     this.copyAction()
   }
 
   copyAction() {
     // Copy to clipboard
     try {
-      new ClipboardJS('.js-copy-button', {
+      new ClipboardJS(this.$button, {
         target: function (trigger) {
           return trigger.nextElementSibling
         }
