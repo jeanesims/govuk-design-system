@@ -18,6 +18,11 @@ class Copy {
     this.$button.className = 'app-copy-button'
     this.$button.textContent = 'Copy code'
 
+    this.$status = document.createElement('span')
+    this.$status.className = 'govuk-visually-hidden'
+    this.$status.setAttribute('aria-live', 'assertive')
+
+    this.$module.insertAdjacentElement('beforebegin', this.$status)
     this.$module.insertAdjacentElement('beforebegin', this.$button)
     this.copyAction()
   }
@@ -29,13 +34,20 @@ class Copy {
         target: function (trigger) {
           return trigger.nextElementSibling
         }
-      }).on('success', function (e) {
-        e.trigger.textContent = 'Code copied'
-        e.clearSelection()
-        setTimeout(() => {
-          e.trigger.textContent = 'Copy code'
-        }, 5000)
-      })
+      }).on(
+        'success',
+        function (e) {
+          this.$button.textContent = this.$status.textContent = 'Code copied'
+          e.clearSelection()
+          setTimeout(
+            function () {
+              this.$button.textContent = 'Copy code'
+              this.$status.textContent = ''
+            }.bind(this),
+            5000
+          )
+        }.bind(this)
+      )
     } catch (err) {
       if (err) {
         console.log(err.message)
